@@ -110,7 +110,7 @@ class FormExpenses extends Component {
        }
 }
 FormExpenses.propTypes = {
-  currencies: PropTypes.string,
+  currencies: PropTypes.array,
   formDispatch: PropTypes.func,
   getTotal: PropTypes.func,
 }.isRequired;

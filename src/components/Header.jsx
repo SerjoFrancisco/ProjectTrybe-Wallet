@@ -10,7 +10,6 @@ class Header extends Component {
         <div data-testid="email-field">{mail}</div>
         <div data-testid="total-field">{total}</div>
         <div data-testid="header-currency-field">BRL</div>
-        <button type="button" onClick={ this.getTotal }>total</button>
       </header>
     );
   }

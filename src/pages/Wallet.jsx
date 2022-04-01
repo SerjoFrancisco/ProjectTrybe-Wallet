@@ -18,6 +18,7 @@ class Wallet extends React.Component {
 
   componentDidMount() {
     this.createCurrencies();
+    this.getTotal();
   }
 
   getTotal = () => {
@@ -44,7 +45,7 @@ class Wallet extends React.Component {
       <div>
         <Header total={ total } />
         <FormExpenses getTotal={ this.getTotal } />
-        <ExpenseTable />
+        <ExpenseTable getTotal={ this.getTotal } />
       </div>
     );
   }

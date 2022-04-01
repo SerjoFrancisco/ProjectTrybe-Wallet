@@ -1,8 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteAction } from '../actions';
 
 class ExpenseTable extends Component {
+  constructor() {
+    super();
+    this.deleteItem = this.deleteItem.bind(this);
+  }
+
+  componentDidUpdate() {
+    const { getTotal } = this.props;
+    getTotal();
+  }
+
+  deleteItem({ target }) {
+    const { expenses, deleteDispatch } = this.props;
+    const newExpenses = expenses.filter((expense) => (
+      Number(expense.id) !== Number(target.id)
+    ));
+    deleteDispatch(newExpenses);
+  }
+
   render() {
     const { expenses } = this.props;
     return (
@@ -20,14 +39,13 @@ class ExpenseTable extends Component {
             <th>Editar/Excluir</th>
           </tr>
         </thead>
-
         {
           expenses.length === 0 ? (
             ''
           ) : (
             <tbody>
               {
-                expenses.map((
+                expenses?.map((
                   { id, value, description, currency, method, tag, exchangeRates },
                 ) => (
                   <tr key={ id }>
@@ -46,8 +64,10 @@ class ExpenseTable extends Component {
                         Editar
                       </button>
                       <button
+                        id={ id }
                         type="button"
                         data-testid="delete-btn"
+                        onClick={ this.deleteItem }
                       >
                         Excluir
                       </button>
@@ -57,18 +77,22 @@ class ExpenseTable extends Component {
             </tbody>
           )
         }
-
       </table>
     );
   }
 }
 
 ExpenseTable.propTypes = ({
-  expenses: PropTypes.string,
+  expenses: PropTypes.array,
+  getTotal: PropTypes.func,
 }).isRequired;
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps)(ExpenseTable);
+const mapDispatchToProps = (dispatch) => ({
+  deleteDispatch: (value) => dispatch(deleteAction(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);
