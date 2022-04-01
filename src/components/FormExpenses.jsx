@@ -46,18 +46,18 @@ class FormExpenses extends Component {
                 onChange={ this.handleChange }
               />
             </label>
-            <label htmlFor="Moeda">
+            <label name="Moeda" htmlFor="Moeda">
               <select
                 name="Moeda"
                 data-testid="currency-input"
                 id="Moeda"
                 value={ Moeda }
+                aria-label="Moeda"
                 onChange={ this.handleChange }
               >
                 {currencies.map((money) => (
                   <option key={ money } value={ money }>{money}</option>
                 ))}
-
               </select>
             </label>
             <label htmlFor="method">
