@@ -4,14 +4,11 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import getCurrencies from '../Helpers/apiFunctions';
 import { walletAction } from '../actions';
+import FormExpenses from '../components/FormExpenses';
 
 class Wallet extends React.Component {
   constructor() {
     super();
-    this.state = {
-      currencies: [],
-      expenses: [],
-    };
     this.createCurrencies = this.createCurrencies.bind(this);
   }
 
@@ -22,14 +19,14 @@ class Wallet extends React.Component {
   async createCurrencies() {
     const { walletDispatch } = this.props;
     const currencies = await getCurrencies();
-    this.setState({ currencies }, () => walletDispatch(currencies));
+    walletDispatch(currencies);
   }
 
   render() {
     return (
       <div>
         <Header />
-        <select name="" id=""></select>
+        <FormExpenses />
       </div>
     );
   }
