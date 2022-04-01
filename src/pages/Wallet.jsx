@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import { getCurrencies } from '../Helpers/apiFunctions';
 import { currenciesAction } from '../actions';
 import FormExpenses from '../components/FormExpenses';
+import ExpenseTable from '../components/ExpenseTable';
 
 class Wallet extends React.Component {
   constructor() {
@@ -43,6 +44,7 @@ class Wallet extends React.Component {
       <div>
         <Header total={ total } />
         <FormExpenses getTotal={ this.getTotal } />
+        <ExpenseTable />
       </div>
     );
   }
