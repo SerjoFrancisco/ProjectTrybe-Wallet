@@ -8,17 +8,23 @@ class FormExpenses extends Component {
     this.state = {
       valueinput: '',
       description: '',
+      Moeda: '',
+      method: '',
+      category: '',
     };
   }
 
-      handleChange = ({ target: { value, name } }) => {
-          console.log(value);
-        this.setState({ [name]: value });
+  handleChange = ({ target: { value, name } }) => {
+    this.setState({ [name]: value });
+  }
+
+      handleSubmit = () => {
+        console.log(this.state);
       }
 
       render() {
         const { currencies } = this.props;
-        const { valueinput, description } = this.state;
+        const { valueinput, description, Moeda, method, category } = this.state;
         return (
           <form action="">
             <label htmlFor="valueinput">
@@ -41,7 +47,13 @@ class FormExpenses extends Component {
               />
             </label>
             <label htmlFor="Moeda">
-              <select name="Moeda" id="Moeda"  onChange={ this.handleChange }>
+              <select
+                name="Moeda"
+                data-testid="currency-input"
+                id="Moeda"
+                value={ Moeda }
+                onChange={ this.handleChange }
+              >
                 {currencies.map((money) => (
                   <option key={ money } value={ money }>{money}</option>
                 ))}
@@ -49,14 +61,25 @@ class FormExpenses extends Component {
               </select>
             </label>
             <label htmlFor="method">
-              <select data-testid="method-input" name="method" onChange={ this.handleChange }>
+              <select
+                data-testid="method-input"
+                name="method"
+                value={ method }
+                onChange={ this.handleChange }
+              >
                 <option value="Dinheiro">Dinheiro</option>
                 <option value="Cartão de crédito">Cartão de crédito</option>
                 <option value="Cartão de débito">Cartão de débito</option>
               </select>
             </label>
             <label htmlFor="category">
-              <select name="category" id="category" onChange={ this.handleChange }>
+              <select
+                name="category"
+                data-testid="tag-input"
+                id="category"
+                value={ category }
+                onChange={ this.handleChange }
+              >
                 <option value="Alimentação">Alimentação</option>
                 <option value="Lazer">Lazer</option>
                 <option value="Trabalho">Trabalho</option>
@@ -64,6 +87,13 @@ class FormExpenses extends Component {
                 <option value="Saúde">Saúde</option>
               </select>
             </label>
+            <button
+              type="button"
+              onClick={ this.handleSubmit }
+            >
+              Entrar
+
+            </button>
           </form>
         );
       }
