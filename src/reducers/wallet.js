@@ -6,10 +6,10 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'GET_WALLET':
     console.log(action.value);
     return {
-      currencies: [],
-      expenses: [],
+      ...state,
+      currencies: action.value,
+      expenses: action.value.expenses,
     };
-
   default:
     return state;
   }
