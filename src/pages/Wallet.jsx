@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import getCurrencies from '../Helpers/apiFunctions';
-import walletAction from '../actions/wallet';
+import { walletAction } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -12,9 +12,14 @@ class Wallet extends React.Component {
       currencies: [],
       expenses: [],
     };
+    this.createCurrencies = this.createCurrencies.bind(this);
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.createCurrencies();
+  }
+
+  async createCurrencies() {
     const { walletDispatch } = this.props;
     const currencies = await getCurrencies();
     this.setState({ currencies }, () => walletDispatch(currencies));
@@ -24,7 +29,7 @@ class Wallet extends React.Component {
     return (
       <div>
         <Header />
-
+        <select name="" id=""></select>
       </div>
     );
   }
