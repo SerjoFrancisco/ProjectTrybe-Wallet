@@ -2,11 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { deleteAction } from '../actions';
+import FormEdit from './FormEdit';
 
 class ExpenseTable extends Component {
   constructor() {
     super();
     this.deleteItem = this.deleteItem.bind(this);
+    this.editItem = this.editItem.bind(this);
+    this.state = {
+      ide: 0,
+      valor: '',
+      descrição: '',
+      moeda: '',
+      metodo: '',
+      tipo: '',
+      conversões: {},
+    };
   }
 
   componentDidUpdate() {
@@ -22,29 +33,46 @@ class ExpenseTable extends Component {
     deleteDispatch(newExpenses);
   }
 
-  render() {
+  editItem({ target }) {
     const { expenses } = this.props;
+    const editItem = expenses.filter((expense) => (
+      Number(expense.id) === Number(target.id)
+    ));
+    const { id, value, description, currency, method, tag, exchangeRates } = editItem[0];
+    this.setState({ ide: id,
+      valor: value,
+      descrição: description,
+      moeda: currency,
+      metodo: method,
+      tipo: tag,
+      conversões: exchangeRates });
+  }
+
+  render() {
+    const { expenses, editClick } = this.props;
+    const { valor } = this.state;
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Descrição</th>
-            <th>Tag</th>
-            <th>Método de pagamento</th>
-            <th>Valor</th>
-            <th>Moeda</th>
-            <th>Câmbio utilizado</th>
-            <th>Valor convertido</th>
-            <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
-          </tr>
-        </thead>
-        {
-          expenses.length === 0 ? (
-            ''
-          ) : (
-            <tbody>
-              {
+      <>
+        <table>
+          <thead>
+            <tr>
+              <th>Descrição</th>
+              <th>Tag</th>
+              <th>Método de pagamento</th>
+              <th>Valor</th>
+              <th>Moeda</th>
+              <th>Câmbio utilizado</th>
+              <th>Valor convertido</th>
+              <th>Moeda de conversão</th>
+              <th>Editar/Excluir</th>
+            </tr>
+          </thead>
+          {
+            expenses.length === 0 ? (
+              ''
+            ) : (
+              <tbody>
+                {
                 expenses?.map((
                   { id, value, description, currency, method, tag, exchangeRates },
                 ) => (
@@ -59,7 +87,10 @@ class ExpenseTable extends Component {
                     <td>Real</td>
                     <td>
                       <button
+                        id={ id }
+                        data-testid="edit-btn"
                         type="button"
+                        onClick={ editClick }
                       >
                         Editar
                       </button>
@@ -73,11 +104,16 @@ class ExpenseTable extends Component {
                       </button>
                     </td>
                   </tr>))
-              }
-            </tbody>
-          )
-        }
-      </table>
+                }
+              </tbody>
+            )
+          }
+        </table>
+        <div>
+          {valor !== ''
+        && <FormEdit { ...this.state } /> }
+        </div>
+      </>
     );
   }
 }

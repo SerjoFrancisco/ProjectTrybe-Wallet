@@ -32,7 +32,7 @@ class FormExpenses extends Component {
 
        render() {
          const { currencies } = this.props;
-         const { value, description, moeda, method, tag } = this.state;
+         const { value, description, currency, method, tag } = this.state;
          return (
            <form action="">
              <label htmlFor="value">
@@ -60,7 +60,7 @@ class FormExpenses extends Component {
                  name="currency"
                  data-testid="currency-input"
                  id="moeda"
-                 value={ moeda }
+                 value={ currency }
                  onChange={ this.handleChange }
                >
                  {currencies.map((money) => (

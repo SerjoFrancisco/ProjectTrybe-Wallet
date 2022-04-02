@@ -6,12 +6,15 @@ import { getCurrencies } from '../Helpers/apiFunctions';
 import { currenciesAction } from '../actions';
 import FormExpenses from '../components/FormExpenses';
 import ExpenseTable from '../components/ExpenseTable';
+import FormEdit from '../components/FormEdit';
 
 class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
       total: 0,
+      edit: false,
+      id: 0,
     };
     this.createCurrencies = this.createCurrencies.bind(this);
   }
@@ -20,6 +23,14 @@ class Wallet extends React.Component {
     this.createCurrencies();
     this.getTotal();
   }
+
+editClick = ({ target: { id } }) => {
+  this.setState({ edit: true, id });
+}
+
+editNo = () => {
+  this.setState({ edit: false });
+}
 
   getTotal = () => {
     const { expenses } = this.props;
@@ -40,12 +51,23 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { total } = this.state;
+    const { total, edit, id } = this.state;
     return (
       <div>
         <Header total={ total } />
-        <FormExpenses getTotal={ this.getTotal } />
-        <ExpenseTable getTotal={ this.getTotal } />
+        {edit ? (
+          <FormEdit
+            id={ id }
+            editNo={ this.editNo }
+          />
+        ) : (
+          <FormExpenses getTotal={ this.getTotal } />
+        )}
+
+        <ExpenseTable
+          getTotal={ this.getTotal }
+          editClick={ this.editClick }
+        />
       </div>
     );
   }
