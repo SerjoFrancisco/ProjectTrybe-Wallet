@@ -3,4 +3,4 @@ Projeto TrybeWallet, neste projeto tive que fazer requisições a uma API de con
 Também é possivel para o usuário editar ou deletar cada despesa individualmente. 
 Projeto feito utilizando redux e React. 
 
-Para rodar localmente deve fazer o clone do repositório e após isso usar os comandos "npm install" e "npm start" na pasta baixada, ou clicar [aqui](www.pudim.com.br);
+Para rodar localmente deve fazer o clone do repositório e após isso usar os comandos "npm install" e "npm start" na pasta baixada, ou clicar [aqui](https://sergio-trybe-wallet.vercel.app/);
