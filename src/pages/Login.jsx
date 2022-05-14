@@ -20,7 +20,7 @@ class Login extends React.Component {
   validateForm = () => {
     const { email, password } = this.state;
     const minLength = 6;
-    const regEx = (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/);
+    const regEx = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     const validateEmail = regEx.test(email);
     if (password.length >= minLength && validateEmail) {
       this.setState({ isDisabled: false });
@@ -45,23 +45,25 @@ class Login extends React.Component {
         <form>
 
           <label htmlFor="email">
-            email:
+            Email:
             <input
               data-testid="email-input"
               type="email"
               name="email"
               value={ email }
               onChange={ this.handleChange }
+              placeholder="Digite um Email válido"
             />
           </label>
           <label htmlFor="senha">
-            senha:
+            Senha:
             <input
               data-testid="password-input"
               type="password"
               name="password"
               value={ password }
               onChange={ this.handleChange }
+              placeholder="Senha de ao menos 6 digitos"
             />
           </label>
           <button

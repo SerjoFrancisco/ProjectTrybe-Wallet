@@ -12,10 +12,10 @@ class ExpenseTable extends Component {
     this.state = {
       ide: 0,
       valor: '',
-      descrição: '',
-      moeda: '',
-      metodo: '',
-      tipo: '',
+      descrição: 'descrição ',
+      moeda: 'USD',
+      metodo: 'Dinheiro',
+      tipo: 'Alimentação',
       conversões: {},
     };
   }
@@ -67,12 +67,9 @@ class ExpenseTable extends Component {
               <th>Editar/Excluir</th>
             </tr>
           </thead>
-          {
-            expenses.length === 0 ? (
-              ''
-            ) : (
-              <tbody>
-                {
+
+          <tbody>
+            {
                 expenses?.map((
                   { id, value, description, currency, method, tag, exchangeRates },
                 ) => (
@@ -104,10 +101,9 @@ class ExpenseTable extends Component {
                       </button>
                     </td>
                   </tr>))
-                }
-              </tbody>
-            )
-          }
+            }
+          </tbody>
+
         </table>
         <div>
           {valor !== ''

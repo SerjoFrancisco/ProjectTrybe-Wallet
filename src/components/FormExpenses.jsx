@@ -9,11 +9,11 @@ class FormExpenses extends Component {
     super(props);
     this.state = {
       id: 0,
-      value: '',
-      description: '',
-      currency: '',
-      method: '',
-      tag: '',
+      value: '0',
+      description: 'Descrição da despesa',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       exchangeRates: {},
     };
   }
@@ -39,7 +39,7 @@ class FormExpenses extends Component {
                Valor:
                <input
                  data-testid="value-input"
-                 type="text"
+                 type="number"
                  name="value"
                  value={ value }
                  onChange={ this.handleChange }
